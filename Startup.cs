@@ -24,10 +24,12 @@ namespace cotacao
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            /*
             // Database Config
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("SQLServer"))
             );
+            */
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
