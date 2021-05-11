@@ -1,0 +1,49 @@
+@{
+    ViewData["Title"] = "Base de dados de moedas";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Bem vindo(a) a base de dados de criptomoedas.</h1>
+    <button id="botaoSubmit" type="button">Clique para pegar a lista de moedas</button>
+
+    <div id="tabela aqui"></div>
+</div>
+
+<script>
+    async function init() {
+        let url = 'https://api.coingecko.com/api/v3/coins/list?include_platform=false';
+        let response = await fetch(url);
+        let moedas = await response.json();
+        let id = [];
+        let name = [];
+        let symbol = [];
+
+        for (i = 0; i < moedas.length; i++) {
+            if (moedas[i].name.includes("Token") == false && moedas[i].name.includes("Index") == false
+            && moedas[i].id.includes("token") == false && moedas[i].id.includes("index") == false) {
+                id.push(moedas[i].id);
+                name.push(moedas[i].name);
+                symbol.push(moedas[i].symbol);
+            }
+        }
+
+        moedas = {
+            "id": id,
+            "name": name, 
+            "symbol": symbol 
+        };
+        document.getElementById('tabela aqui').innerHTML = gerarTabela(moedas);
+    }
+
+    function gerarTabela(moedas) {
+        var nColunas = 3;
+        var nLinhas = moedas.id.length;
+        var inicio = '<table class="moedas">';
+        var fim = '</table>';
+
+        var cabecalho =  '<thead>' + '<th>' + 'Id da moeda' + '</th>' + '<th>' + 'Nome da moeda' + '</th>' + '<th>' + 'Simbolo da moeda' + '</th>' + '</thead>' ;
+        return inicio + cabecalho + fim
+    }
+
+    document.getElementById("botaoSubmit").addEventListener('click', init);
+</script>
