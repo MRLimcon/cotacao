@@ -20,13 +20,13 @@ namespace cotacao
         {
             Configuration = configuration;
         }
-        public class ApplicationDbContext : DbContext
-        {
-            public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
-                : base(options)
-            {
-            }
-        }
+        // public class ApplicationDbContext : DbContext
+        // {
+        //     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+        //         : base(options)
+        //     {
+        //     }
+        // }
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
