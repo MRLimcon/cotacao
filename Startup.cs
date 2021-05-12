@@ -9,8 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Design;
-using Microsoft.EntityFrameworkCore.SqlServer;
+using cotacao.Context;
 
 namespace cotacao
 {
@@ -20,25 +19,17 @@ namespace cotacao
         {
             Configuration = configuration;
         }
-        // public class ApplicationDbContext : DbContext
-        // {
-        //     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
-        //         : base(options)
-        //     {
-        //     }
-        // }
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            /*
+            
             // Database Config
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("SQLServer"))
             );
-            */
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

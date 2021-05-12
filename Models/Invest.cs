@@ -1,12 +1,16 @@
 using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace cotacao.Models
 {
     public class Invest
     {
-        public string InvestId { get; set; }
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int InvestId { get; set; }
 
-        public string Date { get; set; }
+        public DateTime Date { get; set; }
 
         public double Amount { get; set; }
 
