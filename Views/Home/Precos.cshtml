@@ -1,0 +1,42 @@
+@{
+    ViewData["Title"] = "Página de preços";
+}
+
+<div class="text-center">
+    <h1 class="intro">Bem vindo(a) à página de preços.</h1>
+    <h2 class="redir-moeda">Para encontrar uma moeda, aperte <a href="https://localhost:5001/Home/Moedas">Aqui</a></h2>
+
+    <input type="text" id="searchInput" placeholder="Pesquise pelo id da moeda">
+    <button id="botaoSubmit" type="button">Pesquisar</button>
+    <div id="preco aqui"></div>
+</div>
+
+<script>
+    async function init() {
+        let moedaId = document.getElementById("searchInput").value.replace(" ","");
+        let moedaFinal = "brl";
+        let urlInit = "https://api.coingecko.com/api/v3/simple/price?ids=";
+        let urlFim = "&vs_currencies=";
+        let url = urlInit+moedaId+urlFim+moedaFinal;
+
+        let response = await fetch(url);
+        let preco = await response.json();
+
+        for(info in preco) {
+            if(preco.hasOwnProperty(info)) {
+                var value = preco[info];
+            }
+        }
+
+        for(info in value) {
+            if(value.hasOwnProperty(info)) {
+                var valueFim = value[info];
+            }
+        }
+
+        valueFim = parseFloat(valueFim)/100;
+        document.getElementById('preco aqui').innerHTML = "O preço da moeda " + moedaId + ", em reais é: " + valueFim;
+    }
+
+    document.getElementById("botaoSubmit").addEventListener('click', init);
+</script>
