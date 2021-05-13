@@ -1,3 +1,5 @@
+@model IEnumerable<cotacao.Models.Invest>
+
 @{
     ViewData["Title"] = "Invest";
 }
@@ -5,4 +7,38 @@
 <div class="text-center">
     <h1 class="display-4">Index of Invests</h1>
     <p>Here, you found all your invests</a>.</p>
+    <table class="table">
+    <thead>
+        <tr>
+            <th> ID investimento </th>
+            <th> Data da compra </th>
+            <th> Quantidade comprada </th>
+            <th> Moeda </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.InvestId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Amount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Coin)
+                </td>
+                <td>
+                    <a asp-action="Upate" asp-route-id="@item.InvestId">Update</a> |
+                    <a asp-action="Read" asp-route-id="@item.InvestId">Read</a>
+                </td>
+            </tr>
+        }
+    </tbody>        
+    </table>
 </div>
