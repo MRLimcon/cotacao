@@ -45,7 +45,6 @@ namespace cotacao.Controllers
             return RedirectToAction("Index", "Invest");
         }
 
-
         public IActionResult Read(int investId)
         {
             return View();
