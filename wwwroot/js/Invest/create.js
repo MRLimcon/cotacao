@@ -1,9 +1,9 @@
 'use strict'
 
-import { init } from "../coinGeckoApi.js";
+import { listarLista } from "../coinGeckoApi.js";
 
 $(async () => {
-    var moedas = await init();
+    var moedas = await listarLista();
     const selectMoedas = $("#moedas");
     moedas.forEach((moeda) => {
         selectMoedas.append(`<option value="${ moeda.id }">${ moeda.name }</option>`)

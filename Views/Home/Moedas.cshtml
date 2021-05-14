@@ -2,7 +2,7 @@
     ViewData["Title"] = "Página de moedas";
 }
 
-<div class="text-center">
+<div class="text-center" style="text-align: center; padding: 10px">
     <h1 class="intro">Bem vindo(a) à base de dados de criptomoedas.</h1>
     <h2 class="redir-preco">Para achar o preço da moeda, em real, aperte <a href="https://localhost:5001/Home/Precos">Aqui</a></h2>
 
@@ -11,73 +11,4 @@
     <div id="tabela aqui" class="tabela moedas"></div>
 </div>
 
-<script>
-    'use strict';
-
-    async function init() {
-        let url = 'https://api.coingecko.com/api/v3/coins/list?include_platform=false';
-        let response = await fetch(url);
-        let moedas = await response.json();
-        let id = [];
-        let name = [];
-        let symbol = [];
-
-        for (let i = 0; i < moedas.length; i++) {
-            if (moedas[i].name.includes("Token") == false && moedas[i].name.includes("Index") == false
-            && moedas[i].id.includes("token") == false && moedas[i].id.includes("index") == false) {
-                id.push(moedas[i].id);
-                name.push(moedas[i].name);
-                symbol.push(moedas[i].symbol);
-            }
-        }
-
-        moedas = {
-            "id": id,
-            "name": name, 
-            "symbol": symbol 
-        };
-        
-        document.getElementById('tabela aqui').innerHTML = gerarTabela(moedas);
-    }
-
-    function searchFunc() {
-        let input = document.getElementById("searchInput");
-        let tableId = document.getElementById("tabela aqui");
-        let tr = tableId.getElementsByTagName("tr");
-
-        for (i = 0; i < tr.length; i++) {
-            let td = tr[i].getElementsByTagName("td")[1];
-            if (td) {
-                let txtValue = td.innerText;
-                if (txtValue.toUpperCase().includes(input.value.toUpperCase()) == true) {
-                    tr[i].setAttribute("style", "display:");
-                } else {
-                    tr[i].setAttribute("style", "display: none !important;");
-                }
-            }
-        }
-    }
-
-    function gerarTabela(moedas) {
-        var pesquisa = '<input type="text" id="searchInput" placeholder="Pesquisa pelo nome da moeda"> \n'
-        var nLinhas = moedas.id.length;
-        var inicio = '<table class="moedas">';
-        var fim = '</table>';
-        var conteudo = '';
-        var cabecalho =  '<tr>'+'<th>'+' Id da moeda '+'</th>'+'<th>'+' Nome da moeda '+'</th>'+'<th>'+' Simbolo da moeda '+'</th>'+'</tr>'+'\n';
-
-        pesquisa += '<button id="searchButton" onclick="searchFunc()" type="button">Clique para pesquisar</button> \n';
-
-        for (i = 0; i < nLinhas; i++) {
-            conteudo += '<tr>';
-            conteudo += '<td> ' + moedas.id[i] + ' </td>';
-            conteudo += '<td> ' + moedas.name[i] + ' </td>';
-            conteudo += '<td> ' + moedas.symbol[i] + ' </td>';
-            conteudo += '</tr>\n';
-        }
-
-        return pesquisa + inicio + cabecalho + conteudo + fim
-    }
-    
-    document.getElementById("botaoSubmit").addEventListener('click', init);
-</script>
+<script type="module" src="~/js/Home/moedas.js" asp-append-version="true"></script>
