@@ -90,12 +90,11 @@ export async function formatGrafico() {
             historico = historico[info];
         }
     }
-
     for (let i = 0; i < historico.length; i++) {
         historicoFormat.push(historico[i][1]);
         data = new Date(historico[i][0]);
         tempoFormatado.push(data);
     }
     
-    return [ tempoFormatado, historicoFormat ];
+    return [historicoFormat, tempoFormatado];
 }

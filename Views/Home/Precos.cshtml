@@ -8,11 +8,16 @@
 
     <form>
         <input type="text" id="idMoeda" placeholder="Pesquise pelo id da moeda">
+        <div> Para o gráfico histórico, coloque o valor limite do gráfico.</div>
+        <input type="text" id="configDias" placeholder="30">
     </form>
-        <div id="preco aqui"></div>
     
     <button id="botaoSubmit" type="button">Pesquisar</button>
+    
+    <div id="preco aqui"></div>
+    <div id="grafico aqui"></div>
     
 </div>
 
 <script type="module" src="~/js/Home/precos.js" asp-append-version="true"></script>
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
