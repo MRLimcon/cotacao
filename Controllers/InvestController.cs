@@ -32,17 +32,28 @@ namespace cotacao.Controllers
             return View(invests);
         }
         
-        public IActionResult New(int investId)
+        public IActionResult Form(int investId)
         {
             var invests = _context.Invest.Find(investId);
             return View(invests);
         }
 
         [HttpPost]
-        public IActionResult Create(InvestForm form)
+        [ValidateAntiForgeryToken]
+        public IActionResult Form(InvestForm form)
         {
-            // var invests = _context.Invest.Add();
-            return RedirectToAction("Index", "Invest");
+            if (ModelState.IsValid) {
+                Invest newInvests = new Invest();
+                
+                newInvests.Date = DateTime.Now;
+                newInvests.Amount = form.amount;
+                newInvests.Coin = form.coin;
+                _context.Invest.Add(newInvests);
+                var response = _context.SaveChanges();
+
+                return RedirectToAction("Index", "Invest");
+            }
+            return View(form);
         }
 
         public IActionResult Read(int investId)

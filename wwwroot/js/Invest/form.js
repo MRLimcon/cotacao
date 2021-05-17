@@ -10,4 +10,4 @@ $(async () => {
     })
 
     console.log(moedas);
-})
+});
