@@ -1,0 +1,57 @@
+@model IEnumerable<cotacao.Models.Login>
+
+@{
+    ViewData["Title"] = "Login";
+}
+
+<form class="login100-form validate-form">
+  <div class="wrap-input100 validate-input m-b-10" data-validate = "Email is required">
+    <input class="input100" type="text" name="email" id="email" placeholder="Email">
+  </div>
+  <div class="wrap-input100 validate-input m-b-10" data-validate = "Password is required">
+    <input class="input100" type="password" name="password" id="password" placeholder="Password">
+  </div>
+  <div>
+    <input type="button" id="validate" value="Login" class="login100-form-btn">
+  </div>
+  <div class="text-center w-full p-t-25 p-b-80">
+    <a href="#" class="txt1">
+      Esqueceu o email / senha?
+    </a>
+  </div>
+</form>
+
+<script>
+  function Validate() {
+    if (document.getElementById("email").value != "" && document.getElementById("password").value != "") {
+      $.ajax(
+        {
+          type: "POST",
+          url: '@Url.Action("Validate", "Account")',
+          data: {
+            email: $('#email').val(),
+            password: $('#password').val()
+          },
+          error: function (result) {
+            alert("Foi encontrado um problema, tente novamente!");
+          },
+          success: function (result) {
+            console.log(result);
+            if (result.status == true) {
+              window.location.href = '@Url.Action("Index", "Home")';
+            }
+            else {
+              alert(result.message);
+            }
+          }
+        }
+      );
+    } else if (document.getElementById("email").value == "") {
+        alert("Por favor, coloque o e-mail para login.");
+    } else if (document.getElementById("password").value == "") {
+        alert("Por favor, coloque a senha para login.");
+    }
+  }
+
+  document.getElementById("validate").addEventListener('click', Validate);
+</script>

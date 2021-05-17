@@ -12,3 +12,23 @@
 </div>
 
 <script type="module" src="~/js/Home/moedas.js" asp-append-version="true"></script>
+
+<script>
+    function procurarMoeda() {
+    let input = document.getElementById("pesquisaMoeda");
+    let tableId = document.getElementById("tabela aqui");
+    let tr = tableId.getElementsByTagName("tr");
+
+    for (let i = 0; i < tr.length; i++) {
+        let td = tr[i].getElementsByTagName("td")[1];
+        if (td) {
+            let txtValue = td.innerText;
+            if (txtValue.toUpperCase().includes(input.value.toUpperCase()) == true) {
+                tr[i].setAttribute("style", "display:");
+            } else {
+                tr[i].setAttribute("style", "display: none !important;");
+            }
+        }
+    }
+    }    
+</script>
