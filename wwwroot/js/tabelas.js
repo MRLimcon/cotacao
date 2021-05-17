@@ -3,7 +3,7 @@ export function procurarMoeda() {
     let tableId = document.getElementById("tabela aqui");
     let tr = tableId.getElementsByTagName("tr");
 
-    for (i = 0; i < tr.length; i++) {
+    for (let i = 0; i < tr.length; i++) {
         let td = tr[i].getElementsByTagName("td")[1];
         if (td) {
             let txtValue = td.innerText;

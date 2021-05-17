@@ -1,8 +1,8 @@
 'use strict';
 
 import { listarObjeto } from "../coinGeckoApi.js";
-import { gerarTabela } from "../tabelas.js";
 import { procurarMoeda } from "../tabelas.js";
+import { gerarTabela } from "../tabelas.js";
 
 async function init() {
     var moedas = await listarObjeto();
