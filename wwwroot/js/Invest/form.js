@@ -1,6 +1,6 @@
 'use strict'
 
-import { listarLista } from "../coinGeckoApi.js";
+import { listarLista, precoSimples } from "../coinGeckoApi.js";
 
 $(async () => {
     var moedas = await listarLista();
@@ -10,4 +10,14 @@ $(async () => {
     })
 
     console.log(moedas);
+
+    document.getElementById("moedas").addEventListener('change', async () => {
+        document.getElementById("unitPrice").value = await precoSimples(document.getElementById("moedas").value);
+        console.log(document.getElementById("unitPrice").value);
+    });
+
+    document.getElementById("amount").addEventListener('change', async () => {
+        document.getElementById("relativePrice").value = document.getElementById("amount").value * document.getElementById("unitPrice").value;
+        console.log(document.getElementById("relativePrice").value);
+    });
 });

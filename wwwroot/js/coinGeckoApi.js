@@ -71,12 +71,12 @@ export async function preco() {
 }
 
 export async function formatGrafico() {
-    let moedaId = document.getElementById("idMoeda").value.replace(" ","");
+    let moedaId = document.getElementById("idMoeda").value.replaceAll(" ","");
     let moedaFim = "brl";
     let urlInicio = "https://api.coingecko.com/api/v3/coins/";
     let urlMeio = "/market_chart?vs_currency=";
     let urlFim = "&days=";
-    let configDias = document.getElementById("configDias").value.replace(" ","");
+    let configDias = document.getElementById("configDias").value.replaceAll(" ","");
     let info;
     let historicoFormat = [];
     let data = new Date();
@@ -97,4 +97,52 @@ export async function formatGrafico() {
     }
     
     return [historicoFormat, tempoFormatado];
+}
+
+export async function precoCompra(idMoeda,data,quantidade) {
+    let urlInicio = "https://api.coingecko.com/api/v3/coins/";
+    let urlMeio = "/history?date=";
+    data = data.split(" ")[0].replaceAll("/","-");
+    let url = urlInicio + idMoeda + urlMeio + data;
+
+    let resposta = await fetch(url);
+    let precoCompra = await resposta.json();
+    
+    precoCompra = Number(precoCompra.market_data.current_price.brl)*quantidade;
+
+    return Promise.resolve(precoCompra);
+}
+
+export async function precoSimples(moedaId) {
+    let moedaFinal = "brl";
+    let urlInit = "https://api.coingecko.com/api/v3/simple/price?ids=";
+    let urlFim = "&vs_currencies=";
+    let url = urlInit+moedaId+urlFim+moedaFinal;
+    let info;
+
+    let resposta = await fetch(url);
+    let preco = await resposta.json();
+
+    for(info in preco) {
+        if(preco.hasOwnProperty(info)) {
+            var value = preco[info];
+        }
+    }
+
+    for(info in value) {
+        if(value.hasOwnProperty(info)) {
+            var valueFim = value[info];
+        }
+    }
+
+    return valueFim;
+}
+
+export async function retorno(moedaId,data,quantidade) {
+    var precoInicio = await precoCompra(moedaId,data,quantidade);
+    var precoHoje = await precoSimples(moedaId);
+
+    precoHoje = precoHoje*quantidade;
+
+    return ((precoHoje-precoInicio)*100)/precoInicio;
 }

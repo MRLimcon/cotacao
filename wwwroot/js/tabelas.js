@@ -17,14 +17,14 @@ export function procurarMoeda() {
 }
 
 export function gerarTabela(moedas) {
-    var pesquisa = '<input type="text" id="pesquisaMoeda" placeholder="Nome da moeda"> \n'
+    var pesquisa = '<input class="form-control" type="text" id="pesquisaMoeda" placeholder="Nome da moeda"> \n'
     var nLinhas = moedas.id.length;
-    var inicio = '<table class="moedas">';
+    var inicio = '<table class="table">';
     var fim = '</table>';
     var conteudo = '';
-    var cabecalho =  '<tr>'+'<th>'+' Id da moeda '+'</th>'+'<th>'+' Nome da moeda '+'</th>'+'<th>'+' Simbolo da moeda '+'</th>'+'</tr>'+'\n';
+    var cabecalho =  '<thead> <tr> <th>'+' Id da moeda '+'</th> <th>'+' Nome da moeda '+'</th> <th>'+' Simbolo da moeda '+'</th> </tr> </thead>'+'\n';
 
-    pesquisa += '<button id="searchButton" onclick="procurarMoeda()" type="button">Clique para pesquisar</button> \n';
+    pesquisa += '<button class="btn btn-primary" id="searchButton" onclick="procurarMoeda()" type="button">Clique para pesquisar</button> \n';
 
     for (let i = 0; i < nLinhas; i++) {
         conteudo += '<tr>';

@@ -12,8 +12,11 @@ namespace cotacao.Models
 
         public DateTime Date { get; set; }
 
+        [Required(ErrorMessage = "Quantidade é requerida!")]
+        [Range(Double.Epsilon, Double.PositiveInfinity, ErrorMessage = "Quantidade deve ser maior que 0")]
         public double Amount { get; set; }
 
+        [Required(ErrorMessage = "Escolha uma moeda!")]
         public string Coin { get; set; }
     }
 }

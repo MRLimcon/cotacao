@@ -6,7 +6,7 @@
     <h1 class="intro">Bem vindo(a) à base de dados de criptomoedas.</h1>
     <h2 class="redir-preco">Para achar o preço da moeda, em real, aperte <a href="https://localhost:5001/Home/Precos">Aqui</a></h2>
 
-    <button id="botaoSubmit" type="button">Clique para pegar a lista de moedas</button>
+    <button class="btn btn-primary" id="botaoSubmit" type="button">Clique para pegar a lista de moedas</button>
 
     <div id="tabela aqui" class="tabela moedas"></div>
 </div>
@@ -15,20 +15,20 @@
 
 <script>
     function procurarMoeda() {
-    let input = document.getElementById("pesquisaMoeda");
-    let tableId = document.getElementById("tabela aqui");
-    let tr = tableId.getElementsByTagName("tr");
+        let input = document.getElementById("pesquisaMoeda");
+        let tableId = document.getElementById("tabela aqui");
+        let tr = tableId.getElementsByTagName("tr");
 
-    for (let i = 0; i < tr.length; i++) {
-        let td = tr[i].getElementsByTagName("td")[1];
-        if (td) {
-            let txtValue = td.innerText;
-            if (txtValue.toUpperCase().includes(input.value.toUpperCase()) == true) {
-                tr[i].setAttribute("style", "display:");
-            } else {
-                tr[i].setAttribute("style", "display: none !important;");
+        for (let i = 0; i < tr.length; i++) {
+            let td = tr[i].getElementsByTagName("td")[1];
+            if (td) {
+                let txtValue = td.innerText;
+                if (txtValue.toUpperCase().includes(input.value.toUpperCase()) == true) {
+                    tr[i].setAttribute("style", "display:");
+                } else {
+                    tr[i].setAttribute("style", "display: none !important;");
+                }
             }
         }
-    }
     }    
 </script>

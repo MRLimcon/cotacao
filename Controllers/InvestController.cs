@@ -5,7 +5,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using cotacao.Serializers;
 using cotacao.Context;
 using cotacao.Models;
 
@@ -32,23 +31,29 @@ namespace cotacao.Controllers
             return View(invests);
         }
         
-        public IActionResult Form(int investId)
+        public IActionResult Form(int id)
         {
-            var invests = _context.Invest.Find(investId);
-            return View(invests);
+            var invest = _context.Invest.Find(id);
+            return View(invest);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Form(InvestForm form)
+        public IActionResult Form(Invest form)
         {
             if (ModelState.IsValid) {
-                Invest newInvests = new Invest();
-                
-                newInvests.Date = DateTime.Now;
-                newInvests.Amount = form.amount;
-                newInvests.Coin = form.coin;
-                _context.Invest.Add(newInvests);
+                if (form.InvestId > 0)
+                {
+                    var invest = _context.Invest.Find(form.InvestId);
+                    invest.Amount = form.Amount;
+                    invest.Coin = form.Coin;
+
+                }
+                else
+                {
+                    form.Date = DateTime.Now;
+                    _context.Invest.Add(form);
+                }
                 var response = _context.SaveChanges();
 
                 return RedirectToAction("Index", "Invest");
@@ -56,15 +61,13 @@ namespace cotacao.Controllers
             return View(form);
         }
 
-        public IActionResult Read(int investId)
+        [HttpPost]
+        public IActionResult Delete(int id)
         {
-            return View();
-        }
-
-        [HttpPut]
-        public IActionResult Update(int investId)
-        {
-            return View();
+            var invest = _context.Invest.Find(id);
+            _context.Invest.Remove(invest);
+            var response = _context.SaveChanges();
+            return RedirectToAction("Index", "Invest");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

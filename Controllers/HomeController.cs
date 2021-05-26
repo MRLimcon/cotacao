@@ -38,6 +38,38 @@ namespace cotacao.Controllers
             return View();
         }
 
+        public IActionResult ViewCSharp()
+        {
+            return View();
+        }
+
+        public IActionResult Logged()
+        {
+            return View();
+        }
+
+        public ActionResult Validate()
+        {
+            return Json(new { status = true, message = "Login realizado com sucesso!"});
+            /*
+            var _login = _context.Login.Where(s => s.Email == admin.Email);
+            if(_login.Any()){
+                if(_login.Where(s => s.Password == admin.Password).Any()){
+                    
+                    return Json(new { status = true, message = "Login realizado com sucesso!"});
+                }
+                else
+                {
+                    return Json(new { status = false, message = "Senha inválida!"});
+                }
+            }
+            else
+            {
+                return Json(new { status = false, message = "Email Inválido!"});
+            }
+            */
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

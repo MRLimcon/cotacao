@@ -14,6 +14,8 @@
             <th> Data da compra </th>
             <th> Quantidade comprada </th>
             <th> Moeda </th>
+            <th>  </th>
+            <th> Retorno </th>
             <th></th>
         </tr>
     </thead>
@@ -34,11 +36,15 @@
                     @Html.DisplayFor(modelItem => item.Coin)
                 </td>
                 <td>
-                    <a asp-action="Upate" asp-route-id="@item.InvestId">Update</a> |
-                    <a asp-action="Read" asp-route-id="@item.InvestId">Read</a>
+                    <a asp-action="Form" asp-route-id="@item.InvestId">Consultar</a>
+                </td>
+                <td>
+                    
                 </td>
             </tr>
         }
     </tbody>        
     </table>
 </div>
+
+<script type="module" src="~/js/Invest/Index.js" asp-append-version="true"></script>

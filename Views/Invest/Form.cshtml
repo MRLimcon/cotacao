@@ -1,32 +1,72 @@
-@using cotacao.Serializers
-@model InvestForm
+@using cotacao.Models
+@model Invest
 
 @{
-    ViewData["Title"] = "Invest";
+    ViewData["Title"] = "Investimento";
 }
 
 <div class="text-center">
     <div style="text-align: center; padding: 10px">
-        <h1 class="display-4">Novo investimento</h1>
-        <p>Compre sua moeda aqui</p>
+        <h1 class="display-4">Seu investimento</h1>
+        <p>Faça sempre um bom negócio</p>
     </div>
-    <div class="row">
-        <div style="text-align: left;">
-            <form class="form-group" method="post" role="form"
-             asp-controller="Invest" asp-action="Form">
-                Quantidade a ser adquirida:
-                <span class="text-danger h6" asp-validation-for="amount"></span>
-                <input class="form-control" type="number" name="amount" placeholder="0.0" asp-for="amount">
+    <form class="form-group" role="form" method="post" asp-controller="Invest" asp-action="Form">
+        <div class="row">
+            <div class="col-6" style="text-align: left;">
+                <input class="number" type="hidden" asp-for="InvestId" asp-value="InvestId">
                 <label for="moedas">Moeda:</label>
-                <span class="text-danger h6" asp-validation-for="coin"></span>
-                <select class="form-control" id="moedas" name="coin" asp-for="coin"></select>
-
+                <span class="text-danger h6" asp-validation-for="Coin"></span>
+                <select class="form-control" id="moedas" name="coin" asp-for="Coin" asp-value="Coin"></select>
+                <label for="moedas">Preço unitário:</label>
+                <input class="form-control" type="number" id="unitPrice" readonly>
                 <button class="btn btn-primary" type="submit">
                     Salvar
                 </button>
+            </div>
+            <div class="col-6" style="text-align: left;">
+                <label for="moedas">Quantidade requerida:</label>
+                <span class="text-danger h6" asp-validation-for="Amount"></span>
+                <input class="form-control" type="number" step="any" id="amount" name="amount" placeholder="0.0"
+                asp-for="Amount" asp-value="Amount">
+                <label for="moedas">Preço total:</label>
+                <input class="form-control" type="number" id="relativePrice" readonly>
+                @if (Model?.InvestId > 0)
+                {
+                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalDelete">
+                        Vender tudo
+                    </button>
+                }
+            </div>
+        </div>
+    </form>
+</div>
+
+@if (Model?.InvestId > 0)
+{
+<div class="modal" id="modalDelete" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">Vender todo o investimento!</div>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form class="form-group" role="form" method="post"
+             asp-controller="Invest" asp-action="Delete" asp-route-id="@Model.InvestId">
+                <div class="modal-body">
+                    <p>Tem certeza que deseja vender todo esse investimento?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                    <button class="btn btn-danger" type="submit">
+                        Vender tudo
+                    </button>
+                </div>
             </form>
         </div>
     </div>
 </div>
+}
 
 <script type="module" src="~/js/Invest/form.js" asp-append-version="true"></script>

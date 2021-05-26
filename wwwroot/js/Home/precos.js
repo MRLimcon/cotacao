@@ -11,7 +11,7 @@ async function init() {
     let traco = {
         x: historico[1],
         y: historico[0],
-        mode: 'lines+markers'
+        mode: 'lines'
     }
     Plotly.newPlot( localGrafico, [traco] );
 }
