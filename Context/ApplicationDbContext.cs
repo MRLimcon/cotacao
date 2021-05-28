@@ -12,5 +12,7 @@ namespace cotacao.Context {
         {
             base.OnModelCreating(modelBuilder);
         }
+
+        public DbSet<Todo> Todo { get; set; }
     }
 }

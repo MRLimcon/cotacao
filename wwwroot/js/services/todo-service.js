@@ -12,21 +12,25 @@ export class TodoService {
   }
 
   async _commitPost(todoList, todoItem) {
-    // let response = await fetch("localhost:5000/addTodo", {
-    //   method: "Post",
-    //   body: newTodo,
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    // });
+    let response = await fetch("https://localhost:5001/Todo/Todo", {
+      method: "Post",
+      body: JSON.stringify(todoItem),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
 
-    // if (response.status) {
-    //   this.onTodoListChange(todoList);
-    // } else {
-    //   //
-    // }
+    console.log(response);
+    
+      /*
+      if (response.status) {
+      this.onTodoListChange(todoList);
+    } else {
+    //
+    }
 
     this.onTodoListChange(todoList);
+    */
   }
 
   _commitDelete(todoList, todoItem) {
@@ -46,6 +50,7 @@ export class TodoService {
 
     this.todoList.list.push(newTodo);
 
+    console.log(newTodo);
     await this._commitPost(this.todoList.list, newTodo);
   }
 
